@@ -6,7 +6,6 @@ import com.example.kuit_server.dto.*;
 import com.example.kuit_server.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,13 +43,24 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}/nickname")
-    public BaseResponse<String> modifyNickname(@Validated @RequestBody PatchUserNickname patchUserNickname, BindingResult bindingResult,
-                                                     @PathVariable int userId) {
+    public BaseResponse<String> modifyNickname(@Validated @RequestBody PatchUserNicknameReq patchUserNicknameReq, BindingResult bindingResult,
+                                               @PathVariable int userId) {
         log.info("[UserController.modifyNickname] userId={}", userId);
         if (bindingResult.hasErrors()) {
             throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
         }
-        userService.modifyNickname(patchUserNickname.getNickname(), userId);
+        userService.modifyNickname(patchUserNicknameReq.getNickname(), userId);
+        return new BaseResponse<>(null);
+    }
+
+    @PatchMapping("/{userId}/password")
+    public BaseResponse<String> modifyPassword(@Validated @RequestBody PatchUserPasswordReq patchUserPasswordReq, BindingResult bindingResult,
+                                               @PathVariable int userId) {
+        log.info("[UserController.modifyPassword] userId={}", userId);
+        if (bindingResult.hasErrors()) {
+            throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
+        }
+        userService.modifyPassword(patchUserPasswordReq, userId);
         return new BaseResponse<>(null);
     }
 

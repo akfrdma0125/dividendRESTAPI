@@ -19,6 +19,6 @@ public class UserExceptionControllerAdvice {
     @ExceptionHandler(UserException.class)
     public BaseErrorResponse runtimeExceptionHandler(UserException e){
         log.error("[handle_UserException]",e);
-        return new BaseErrorResponse(INVALID_USER_STATUS, e.getMessage());
+        return new BaseErrorResponse(e.getExceptionStatus(), e.getMessage());
     }
 }
