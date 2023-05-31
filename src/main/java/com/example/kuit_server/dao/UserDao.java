@@ -28,11 +28,6 @@ public class UserDao {
         return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, param, boolean.class));
     }
 
-    public boolean hasDuplicateNickName(String nickname) {
-        String sql = "select exists(select email from user where nickname=:nickname and status in ('active', 'dormant'))";
-        Map<String, Object> param = Map.of("nickname", nickname);
-        return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, param, boolean.class));
-    }
 
     public int createUser(PostUserReq postUserRequest) {
         String sql = "insert into user(email, password, phone_number, nickname, profile_image) " +
@@ -43,5 +38,11 @@ public class UserDao {
         jdbcTemplate.update(sql, param, keyHolder);
 
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+
+    public String getPasswordByUserId(int userId) {
+        String sql = "select password from user where user_id=:userId and status in ('active', 'dormant')";
+        Map<String, Object> param = Map.of("userId", userId);
+        return jdbcTemplate.queryForObject(sql, param, String.class);
     }
 }
