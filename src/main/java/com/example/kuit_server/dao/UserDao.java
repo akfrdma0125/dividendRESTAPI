@@ -1,6 +1,6 @@
 package com.example.kuit_server.dao;
 
-import com.example.kuit_server.dto.PostUserReq;
+import com.example.kuit_server.dto.user.PostUserReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

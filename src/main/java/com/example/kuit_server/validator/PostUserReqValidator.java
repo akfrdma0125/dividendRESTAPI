@@ -1,7 +1,7 @@
 package com.example.kuit_server.validator;
 
 
-import com.example.kuit_server.dto.PostUserReq;
+import com.example.kuit_server.dto.user.PostUserReq;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

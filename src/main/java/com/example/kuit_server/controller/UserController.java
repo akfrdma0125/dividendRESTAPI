@@ -2,7 +2,7 @@ package com.example.kuit_server.controller;
 
 import com.example.kuit_server.common.exception.UserException;
 import com.example.kuit_server.common.response.BaseResponse;
-import com.example.kuit_server.dto.*;
+import com.example.kuit_server.dto.user.*;
 import com.example.kuit_server.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,6 +63,5 @@ public class UserController {
         userService.modifyPassword(patchUserPasswordReq, userId);
         return new BaseResponse<>(null);
     }
-
 
 }

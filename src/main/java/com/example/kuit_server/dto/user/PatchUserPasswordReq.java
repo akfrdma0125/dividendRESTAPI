@@ -1,4 +1,4 @@
-package com.example.kuit_server.dto;
+package com.example.kuit_server.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

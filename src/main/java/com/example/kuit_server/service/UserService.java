@@ -3,7 +3,7 @@ package com.example.kuit_server.service;
 import com.example.kuit_server.common.exception.DatabaseException;
 import com.example.kuit_server.common.exception.UserException;
 import com.example.kuit_server.dao.UserDao;
-import com.example.kuit_server.dto.*;
+import com.example.kuit_server.dto.user.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

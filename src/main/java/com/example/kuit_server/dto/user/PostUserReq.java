@@ -1,4 +1,4 @@
-package com.example.kuit_server.dto;
+package com.example.kuit_server.dto.user;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.validation.constraints.Email;
@@ -28,6 +28,7 @@ public class PostUserReq {
 
     @NotBlank(message = "phoneNumber: {NotBlank}")
     @Length(max = 20, message = "phoneNumber: 최대 {max}자리까지 가능합니다")
+    @Pattern(regexp = "(^\\d{3})-(\\d{3,4})-(\\d{4})$",message="phoneNumber: 올바른 전화번호 형식이 아닙니다")
     private String phoneNumber;
 
     @NotBlank(message = "nickname: {NotBlank}")
