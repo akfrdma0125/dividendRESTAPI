@@ -2,10 +2,7 @@ package com.example.kuit_server.controller;
 
 import com.example.kuit_server.common.exception.UserException;
 import com.example.kuit_server.common.response.BaseResponse;
-import com.example.kuit_server.dto.PostLoginReq;
-import com.example.kuit_server.dto.PostLoginRes;
-import com.example.kuit_server.dto.PostUserReq;
-import com.example.kuit_server.dto.PostUserRes;
+import com.example.kuit_server.dto.*;
 import com.example.kuit_server.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,17 +29,29 @@ public class UserController {
             throw new UserException(INVALID_USER_VALUE,getErrorMessages(bindingResult));
         }
         PostUserRes postUserRes = userService.signUp(postUserReq);
+
         return new BaseResponse<>(postUserRes);
     }
 
-    @PostMapping("/login/{id}")
+    @PostMapping("/login/{userId}")
     public BaseResponse<PostLoginRes> login(@Validated @RequestBody PostLoginReq postLoginRequest, BindingResult bindingResult,
-                                            @PathVariable int id) {
-        log.info("[UserController.login] userId={}", id);
+                                            @PathVariable int userId) {
+        log.info("[UserController.login] userId={}", userId);
         if (bindingResult.hasErrors()) {
             throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
         }
-        return new BaseResponse<>(userService.login(postLoginRequest, id));
+        return new BaseResponse<>(userService.login(postLoginRequest, userId));
+    }
+
+    @PatchMapping("/{userId}/nickname")
+    public BaseResponse<String> modifyNickname(@Validated @RequestBody PatchUserNickname patchUserNickname, BindingResult bindingResult,
+                                                     @PathVariable int userId) {
+        log.info("[UserController.modifyNickname] userId={}", userId);
+        if (bindingResult.hasErrors()) {
+            throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
+        }
+        userService.modifyNickname(patchUserNickname.getNickname(), userId);
+        return new BaseResponse<>(null);
     }
 
 
