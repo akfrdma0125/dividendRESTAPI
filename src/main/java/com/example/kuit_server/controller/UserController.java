@@ -30,5 +30,11 @@ public class UserController {
         return new BaseResponse<>(userService.login(postUserReq));
     }
 
+    @PatchMapping("/{userId}")
+    public BaseResponse deleteUser(@PathVariable int userId){
+        log.info("[UserController.deleteUser]: userId = {}",userId);
+        userService.deleteUser(userId);
+        return new BaseResponse(null);
+    }
 
 }

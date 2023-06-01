@@ -25,7 +25,6 @@ public class UserDao {
         this.userMapper = new UserMapper();
     }
 
-
     public int createUser(PostUserReq postUserRequest) {
         String sql = "insert into user(email, user_name) " +
                 "values(:email,:userName)";
@@ -41,6 +40,12 @@ public class UserDao {
         String sql = "select user_id,user_name,email,holding_dollar from user where email=:email";
         Map<String, Object> param = Map.of("email", email);
         return jdbcTemplate.queryForObject(sql, param, userMapper);
+    }
+
+    public int deleteUser(int userId){
+        String sql = "delete from user where user_id=:userId";
+        Map<String, Object> param = Map.of("userId", userId);
+        return jdbcTemplate.update(sql,param);
     }
 
     public boolean hasDuplicateEmail(String email) {

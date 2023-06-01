@@ -1,6 +1,6 @@
 package com.example.kuit_server.service;
 
-import com.example.kuit_server.common.exception.UserException;
+import com.example.kuit_server.common.exception.DatabaseException;
 import com.example.kuit_server.dao.UserDao;
 import com.example.kuit_server.dto.user.*;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +17,16 @@ public class UserService {
 
     public PostUserRes login(PostUserReq postUserReq) {
         log.info("[UserService.login]");
-
         hasUserInfo(postUserReq);
-
         return userDao.getUserByUserEmail(postUserReq.getEmail());
+    }
+
+    public void deleteUser(int userId){
+        log.info("[UserService.deleteUser]");
+        int affectedRow = userDao.deleteUser(userId);
+        if(affectedRow!=1){
+            throw new DatabaseException(DATABASE_ERROR);
+        }
     }
 
     public void hasUserInfo(PostUserReq postUserReq){
