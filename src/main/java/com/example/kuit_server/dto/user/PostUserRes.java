@@ -1,13 +1,14 @@
 package com.example.kuit_server.dto.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Setter @Getter
+@NoArgsConstructor
 public class PostUserRes {
     private int userId;
-    private String jwt = null;
-
-    public PostUserRes(int userId) {
-        this.userId = userId;
-    }
+    private String userName;
+    private String email;
+    private double holdingDollar;
 }

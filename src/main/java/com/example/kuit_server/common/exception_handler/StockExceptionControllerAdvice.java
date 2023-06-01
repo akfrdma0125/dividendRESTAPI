@@ -1,6 +1,6 @@
 package com.example.kuit_server.common.exception_handler;
 
-import com.example.kuit_server.common.exception.UserException;
+import com.example.kuit_server.common.exception.StockException;
 import com.example.kuit_server.common.response.BaseErrorResponse;
 import jakarta.annotation.Priority;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @Priority(0)
 @RestControllerAdvice
-public class UserExceptionControllerAdvice {
+public class StockExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(UserException.class)
-    public BaseErrorResponse runtimeExceptionHandler(UserException e){
-        log.error("[handle_UserException]",e);
+    @ExceptionHandler(StockException.class)
+    public BaseErrorResponse runtimeExceptionHandler(StockException e){
+        log.error("[handle_RestaurantException]",e);
         return new BaseErrorResponse(e.getExceptionStatus(), e.getMessage());
     }
 }

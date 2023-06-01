@@ -38,22 +38,28 @@ public enum BaseExceptionResponseStatus implements ResponseStatus{
     /**
      * 5000: User 오류
      */
-    INVALID_USER_VALUE(5000, HttpStatus.BAD_REQUEST.value(), "회원가입 요청에서 잘못된 값이 존재합니다."),
+    INVALID_USER_VALUE(5000, HttpStatus.BAD_REQUEST.value(), "회원 정보에서 잘못된 값이 존재합니다."),
     DUPLICATE_EMAIL(5001, HttpStatus.BAD_REQUEST.value(), "이미 존재하는 이메일입니다."),
-    DUPLICATE_NICKNAME(5002, HttpStatus.BAD_REQUEST.value(), "이미 존재하는 닉네임입니다."),
+
     USER_NOT_FOUND(4003, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 회원입니다."),
-    PASSWORD_NO_MATCH(4004, HttpStatus.BAD_REQUEST.value(), "기존 비밀번호와 일치하지 않습니다."),
-    INVALID_USER_STATUS(4005, HttpStatus.BAD_REQUEST.value(), "잘못된 회원 status 값입니다."),
-    INVALID_PASSWORD(4006, HttpStatus.BAD_REQUEST.value(), "비밀번호가 일치하지 않습니다."),
 
     /**
-     * 6000: Store 오류
+     * 6000: Stock 오류
      */
-    INVALID_STORE_VALUE(6000, HttpStatus.BAD_REQUEST.value(), "가게등록 요청에서 잘못된 값이 존재합니다."),
-    DUPLICATE_STORENAME(6001,HttpStatus.BAD_REQUEST.value(),"이미 존재하는 가게 이름입니다."),
-    STORE_NOT_FOUND(4007, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 가게입니다."),
-    INVALID_STORE_STATUS(4008, HttpStatus.BAD_REQUEST.value(), "잘못된 가게 status 값입니다."),
-    INVALID_STORE_CATECORY(4009,HttpStatus.BAD_REQUEST.value(), "잘못된 회원 카테고리 값입니다.");
+    INVALID_STOCK_VALUE(6000, HttpStatus.BAD_REQUEST.value(), "주식 정보에서 잘못된 값이 존재합니다."),
+    STOCK_NOT_FOUND(4004, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 주식 정보입니다."),
+
+    /**
+     * 7000: Stock 오류
+     */
+    INVALID_HOLDING_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "보유한 주식 정보에서 잘못된 값이 존재합니다."),
+    HOLDING_NOT_FOUND(4005, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 보유 주식 정보입니다."),
+
+    /**
+     * 8000: DIVIDEND 오류
+     */
+    INVALID_DIVIDNED_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "배당금 정보에서 잘못된 값이 존재합니다."),
+    DIVIDEND_NOT_FOUND(4006, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 배당금 정보입니다.");
 
     private final int code;
     private final int status;

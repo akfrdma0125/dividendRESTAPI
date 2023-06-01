@@ -8,10 +8,10 @@ import javax.sql.DataSource;
 
 @Slf4j
 @Repository
-public class RestaurantDao {
+public class HoldingDao {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public RestaurantDao(DataSource dataSource) {
+    public HoldingDao(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 }

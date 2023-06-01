@@ -1,9 +1,8 @@
 spring:
   profiles:
     group:
-      "local": "localDB, devPort, secret, web-mvc"
-      "dev": "devDB, devPort, secret, web-mvc"
-      "prod": "prodDB, prodPort, secret, web-mvc"
+      "local": "localDB, Port, web-mvc"
+      "prod": "prodDB, Port, web-mvc"
 
 ---
 
@@ -14,26 +13,8 @@ spring:
 
   datasource:
     url: ${DATASOURCE_URL_LOCAL}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    dbcp2:
-      validation-query: select 1
-  sql:
-    init:
-      platform: mysql
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "devDB"
-
-  datasource:
-    url: ${DATASOURCE_URL_DEV}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
+    username: ${DATASOURCE_USERNAME_LOCAL}
+    password: ${DATASOURCE_PASSWORD_LOCAL}
     driver-class-name: com.mysql.cj.jdbc.Driver
     dbcp2:
       validation-query: select 1
@@ -50,45 +31,24 @@ spring:
 
   datasource:
     url: ${DATASOURCE_URL_PROD}
-    username: ${DATASOURCE_USERNAME}
-    password: ${DATASOURCE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATASOURCE_USERNAME_PROD}
+    password: ${DATASOURCE_PASSWORD_PROD}
+    driver-class-name: org.mariadb.jdbc.Driver
     dbcp2:
       validation-query: select 1
   sql:
     init:
-      platform: mysql
+      platform: mariadb
 
 ---
 
 spring:
   config:
     activate:
-      on-profile: "devPort"
+      on-profile: "Port"
 
 server:
-  port: 9000
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "prodPort"
-
-server:
-  port: 9001
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "secret"
-
-secret:
-  jwt-secret-key: ${JWT_SECRET_KEY}
-  jwt-expired-in: ${JWT_EXPIRED_IN}
+  port: 8080
 
 ---
 

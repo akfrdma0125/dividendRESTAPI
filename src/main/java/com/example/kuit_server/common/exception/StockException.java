@@ -5,15 +5,15 @@ import lombok.Getter;
 
 
 @Getter
-public class RestaurantException extends RuntimeException{
+public class StockException extends RuntimeException{
     private final ResponseStatus exceptionStatus;
 
-    public RestaurantException(ResponseStatus exceptionStatus){
+    public StockException(ResponseStatus exceptionStatus){
         super(exceptionStatus.getMessage());
         this.exceptionStatus = exceptionStatus;
     }
 
-    public RestaurantException(ResponseStatus exceptionStatus, String message){
+    public StockException(ResponseStatus exceptionStatus, String message){
         super(message);
         this.exceptionStatus = exceptionStatus;
     }

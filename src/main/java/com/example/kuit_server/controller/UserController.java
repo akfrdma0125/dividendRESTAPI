@@ -21,47 +21,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("")
-    public BaseResponse<PostUserRes> signUp(
-            @Validated @RequestBody PostUserReq postUserReq, BindingResult bindingResult) throws UserException {
-        if(bindingResult.hasErrors()){
-            throw new UserException(INVALID_USER_VALUE,getErrorMessages(bindingResult));
-        }
-        PostUserRes postUserRes = userService.signUp(postUserReq);
-
-        return new BaseResponse<>(postUserRes);
-    }
-
-    @PostMapping("/login/{userId}")
-    public BaseResponse<PostLoginRes> login(@Validated @RequestBody PostLoginReq postLoginRequest, BindingResult bindingResult,
-                                            @PathVariable int userId) {
-        log.info("[UserController.login] userId={}", userId);
+    @PostMapping("/login")
+    public BaseResponse<PostUserRes> login(@Validated @RequestBody PostUserReq postUserReq, BindingResult bindingResult) {
+        log.info("[UserController.login]");
         if (bindingResult.hasErrors()) {
             throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
         }
-        return new BaseResponse<>(userService.login(postLoginRequest, userId));
+        return new BaseResponse<>(userService.login(postUserReq));
     }
 
-    @PatchMapping("/{userId}/nickname")
-    public BaseResponse<String> modifyNickname(@Validated @RequestBody PatchUserNicknameReq patchUserNicknameReq, BindingResult bindingResult,
-                                               @PathVariable int userId) {
-        log.info("[UserController.modifyNickname] userId={}", userId);
-        if (bindingResult.hasErrors()) {
-            throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
-        }
-        userService.modifyNickname(patchUserNicknameReq.getNickname(), userId);
-        return new BaseResponse<>(null);
-    }
-
-    @PatchMapping("/{userId}/password")
-    public BaseResponse<String> modifyPassword(@Validated @RequestBody PatchUserPasswordReq patchUserPasswordReq, BindingResult bindingResult,
-                                               @PathVariable int userId) {
-        log.info("[UserController.modifyPassword] userId={}", userId);
-        if (bindingResult.hasErrors()) {
-            throw new UserException(INVALID_USER_VALUE, getErrorMessages(bindingResult));
-        }
-        userService.modifyPassword(patchUserPasswordReq, userId);
-        return new BaseResponse<>(null);
-    }
 
 }
