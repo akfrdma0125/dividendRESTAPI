@@ -9,16 +9,17 @@ public class HoldingMapper implements RowMapper<GetHoldingRes> {
     @Override
     public GetHoldingRes mapRow(ResultSet rs, int rowNum) throws SQLException {
         GetHoldingRes getHoldingRes = new GetHoldingRes();
-//
-//        getHoldingRes.setId(rs.getInt("id"));
-//        getHoldingRes.setUserid(rs.getInt("userid"));
-//        getHoldingRes.setStockid(rs.getInt("stockid"));
-//        getHoldingRes.setStockname(rs.getString("stockname"));
-//        getHoldingRes.setPrice(rs.getDouble("price"));
-//        getHoldingRes.setExrate(rs.getDouble("exrate"));
-//        getHoldingRes.setQuantity(rs.getInt("quantity"));
-//        getHoldingRes.setCreatedAt(rs.getTimestamp("CreatedAt"));
-//        getHoldingRes.setDeletedAt(rs.getTimestamp("DeletedAt"));
+
+        getHoldingRes.setHoldingId(rs.getInt("holding_id"));
+        getHoldingRes.setUserId(rs.getInt("user_id"));
+        getHoldingRes.setStockId(rs.getInt("stock_id"));
+        getHoldingRes.setStockName(rs.getString("stock_name"));
+        getHoldingRes.setPrice(rs.getDouble("price"));
+        getHoldingRes.setExchangeRate(rs.getDouble("exchange_rate"));
+        getHoldingRes.setQuantity(rs.getInt("quantity"));
+        getHoldingRes.setCreatedAt(rs.getTimestamp("CreatedAt"));
+        getHoldingRes.setDeletedAt(rs.getTimestamp("DeletedAt"));
+
         return getHoldingRes;
     }
 }

@@ -40,7 +40,7 @@ public class UserService {
         }
     }
 
-    public void hasUserInfo(PostUserReq postUserReq){
+    private void hasUserInfo(PostUserReq postUserReq){
         if (!userDao.hasDuplicateEmail(postUserReq.getEmail())){
             int id = userDao.createUser(postUserReq);
             log.info("[UserService.login.hasUserInfo] : userID = {}",id);
