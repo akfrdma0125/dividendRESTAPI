@@ -1,5 +1,6 @@
 package com.example.kuit_server.dao;
 
+import com.example.kuit_server.dto.user.HoldingDollarInfo;
 import com.example.kuit_server.dto.user.PostUserReq;
 import com.example.kuit_server.dto.user.PostUserRes;
 import com.example.kuit_server.mapper.UserMapper;
@@ -48,11 +49,23 @@ public class UserDao {
         return jdbcTemplate.update(sql,param);
     }
 
+    public int updateHoldingDollar(HoldingDollarInfo holdingDollarInfo) {
+        String sql = "update user set holding_dollar  = holding_dollar+:dollar where user_id= :userId;";
+        Map<String, Object> param = Map.of(
+                "dollar",holdingDollarInfo.getHoldingDollar(),
+                "userId",holdingDollarInfo.getUserId());
+        return jdbcTemplate.update(sql,param);
+    }
+
     public boolean hasDuplicateEmail(String email) {
         String sql = "select exists(select email from user where email=:email)";
         Map<String, Object> param = Map.of("email", email);
         return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, param, boolean.class));
     }
 
-
+    public boolean hasUserInfobyUserId(int userId) {
+        String sql = "select exists(select user_id from user where user_id=:userId)";
+        Map<String, Object> param = Map.of("userId", userId);
+        return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, param, boolean.class));
+    }
 }

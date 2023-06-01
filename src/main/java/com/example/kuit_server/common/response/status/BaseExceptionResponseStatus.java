@@ -47,6 +47,7 @@ public enum BaseExceptionResponseStatus implements ResponseStatus{
      * 6000: Stock 오류
      */
     INVALID_STOCK_VALUE(6000, HttpStatus.BAD_REQUEST.value(), "주식 정보에서 잘못된 값이 존재합니다."),
+    STOCK_DIVIDEND_NOT_FOUND(6001,HttpStatus.BAD_REQUEST.value(),"해당 주식의 배당금 정보가 존재하지 않습니다."),
     STOCK_NOT_FOUND(4004, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 주식 정보입니다."),
 
     /**

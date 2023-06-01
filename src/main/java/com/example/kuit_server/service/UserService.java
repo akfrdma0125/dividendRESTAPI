@@ -1,6 +1,7 @@
 package com.example.kuit_server.service;
 
 import com.example.kuit_server.common.exception.DatabaseException;
+import com.example.kuit_server.common.exception.UserException;
 import com.example.kuit_server.dao.UserDao;
 import com.example.kuit_server.dto.user.*;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,17 @@ public class UserService {
 
     public void deleteUser(int userId){
         log.info("[UserService.deleteUser]");
+        validateUserId(userId);
         int affectedRow = userDao.deleteUser(userId);
+        if(affectedRow!=1){
+            throw new DatabaseException(DATABASE_ERROR);
+        }
+    }
+
+    //TODO : 보유 달러 값이 증가 혹은 감소하는 기능
+    public void updateHoldingDollar(HoldingDollarInfo holdingDollarInfo){
+        log.info("[UserService.updateHoldingDollar]");
+        int affectedRow = userDao.updateHoldingDollar(holdingDollarInfo);
         if(affectedRow!=1){
             throw new DatabaseException(DATABASE_ERROR);
         }
@@ -33,6 +44,12 @@ public class UserService {
         if (!userDao.hasDuplicateEmail(postUserReq.getEmail())){
             int id = userDao.createUser(postUserReq);
             log.info("[UserService.login.hasUserInfo] : userID = {}",id);
+        }
+    }
+
+    public void validateUserId(int userId){
+        if(!userDao.hasUserInfobyUserId(userId)){
+            throw new UserException(USER_NOT_FOUND);
         }
     }
 }
