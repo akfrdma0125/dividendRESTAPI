@@ -22,7 +22,7 @@ public class StockMapper implements RowMapper<GetStockRes> {
 
         getStockRes.setStockId(rs.getInt("stock_id"));
         getStockRes.setStockName(rs.getString("stock_name"));
-        getStockRes.setUpdatedAt(rs.getTimestamp("updated_at"));
+        getStockRes.setUpdatedAt(rs.getTimestamp("updatedat"));
         getStockRes.setActualDividend(forwardDividend/frequency);
 
         return getStockRes;
