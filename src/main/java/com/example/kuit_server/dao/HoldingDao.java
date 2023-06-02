@@ -59,18 +59,37 @@ public class HoldingDao {
         return jdbcTemplate.query(sql, param, holdingMapper);
     }
 
-    public int deleteHoldingStocks(int userId, int stockId){
-        String sql = "update holding set deletedAt = :now where user_id=:userId and stock_id=:stockId";
+    public GetHoldingRes getHoldingStockById(int userId, int holdingId) {
+        String sql = "select * from holding where user_id=:userId and holding_id=:holdingId";
+        Map<String, Object> param = Map.of("userId",userId,"holdingId",holdingId);
+        return jdbcTemplate.queryForObject(sql, param, holdingMapper);
+    }
+
+    public int deleteHoldingStocks(int userId, int holdingId){
+        String sql = "update holding set deletedAt = :now where user_id=:userId and holding_id=:holdingId";
         Map<String, Object> param = Map.of(
                 "now", new Timestamp(System.currentTimeMillis()),
                 "userId", userId,
-                "stockId",stockId);
+                "holdingId",holdingId);
         return jdbcTemplate.update(sql,param);
     }
 
-//    public boolean hasHoldingStock(String email) {
-//        String sql = "select exists(select email from holding where email=:email)";
-//        Map<String, Object> param = Map.of("email", email);
-//        return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, param, boolean.class));
-//    }
+    public double getAllDividendByHoldingId(int holdingId){
+        String sql = "select sum(dividend*quantity) from dividend where holding_id=:holdingId";
+        Map<String, Object> param = Map.of("holdingId",holdingId);
+        try{
+            double result = jdbcTemplate.queryForObject(sql, param, Double.class);
+            log.info("[HoldingDao.getAllDividendByHoldingId] money: {}",result);
+            return result;
+        }catch(NullPointerException e){
+            return 0;
+        }
+    }
+
+    public int deleteAllDividendByHoldingId(int holdingId){
+        String sql = "delete from dividend where holding_id=:holdingId";
+        Map<String, Object> param = Map.of("holdingId", holdingId);
+        return jdbcTemplate.update(sql,param);
+    }
+
 }

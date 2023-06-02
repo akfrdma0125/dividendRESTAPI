@@ -27,7 +27,7 @@ public class HoldingService {
         log.info("[HoldingService.createHoldingStock]");
         int id = holdingDao.createHoldingStock(postHoldingReq);
         log.info("[HoldingService.createHoldingStock] : holdingId = {}",id);
-        updateHoldingDollar(postHoldingReq);
+        updateHoldingDollar(postHoldingReq.getPrice()*postHoldingReq.getQuantity(), postHoldingReq.getUserId());
     }
 
     public List<GetHoldingRes> getHoldingStocksByUserId(int userId){
@@ -45,17 +45,25 @@ public class HoldingService {
         return holdingDao.getHoldingStocksById(userId, holdingId);
     }
 
-    public int deleteHoldingStocks(int userId, int stockId){
+    public void deleteHoldingStocks(int userId, int holdingId){
         log.info("[HoldingService.deleteHoldingStock]");
-        int affectedRow = holdingDao.deleteHoldingStocks(userId,stockId);
+        int affectedRow = holdingDao.deleteHoldingStocks(userId,holdingId);
         if(affectedRow < 1){
             throw new HoldingException(HOLDING_NOT_FOUND);
         }
-        return affectedRow;
+        double price = calculateTotalPrice(userId, holdingId)*(-1);
+        updateHoldingDollar(price,userId);
+        holdingDao.deleteAllDividendByHoldingId(holdingId);
     }
 
-    private void updateHoldingDollar(PostHoldingReq postHoldingReq) {
-        double totalPrice = postHoldingReq.getPrice()* postHoldingReq.getQuantity();
-        userService.updateHoldingDollar(new HoldingDollarInfo(postHoldingReq.getUserId(),totalPrice));
+    private double calculateTotalPrice(int userId, int holdingId) {
+        double totalDividend = holdingDao.getAllDividendByHoldingId(holdingId);
+        GetHoldingRes target = holdingDao.getHoldingStockById(userId, holdingId);
+        double stockPrice = target.getPrice()*target.getQuantity();
+        return totalDividend+stockPrice;
+    }
+
+    private void updateHoldingDollar(double price, int userId) {
+        userService.updateHoldingDollar(new HoldingDollarInfo(userId,price));
     }
 }

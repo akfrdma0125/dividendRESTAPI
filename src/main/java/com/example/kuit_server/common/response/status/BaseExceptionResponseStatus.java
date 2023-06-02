@@ -51,15 +51,16 @@ public enum BaseExceptionResponseStatus implements ResponseStatus{
     STOCK_NOT_FOUND(4004, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 주식 정보입니다."),
 
     /**
-     * 7000: Stock 오류
+     * 7000: Holding 오류
      */
     INVALID_HOLDING_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "보유한 주식 정보에서 잘못된 값이 존재합니다."),
+    DELETED_HOLDING_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "보유한 주식 정보는 현재 매도 상태입니다."),
     HOLDING_NOT_FOUND(4005, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 보유 주식 정보입니다."),
 
     /**
      * 8000: DIVIDEND 오류
      */
-    INVALID_DIVIDNED_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "배당금 정보에서 잘못된 값이 존재합니다."),
+    INVALID_DIVIDEND_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "배당금 정보에서 잘못된 값이 존재합니다."),
     DIVIDEND_NOT_FOUND(4006, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 배당금 정보입니다.");
 
     private final int code;

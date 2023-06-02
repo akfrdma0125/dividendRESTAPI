@@ -35,12 +35,13 @@ public class HoldingController {
     }
 
     @PatchMapping("/{userId}")
-    public BaseResponse<Integer> deleteHoldingStocks(@PathVariable int userId, @RequestParam @Nullable String stockId){
+    public BaseResponse deleteHoldingStocks(@PathVariable int userId, @RequestParam @Nullable String holdingId){
         log.info("[HoldingController.deleteHoldingStocks]");
-        if(stockId == null)
-            throw new HoldingException(INVALID_HOLDING_VALUE,"주식 아이디가 포함되지 않았습니다.");
-        int id = Integer.parseInt(stockId);
-        return new BaseResponse<>(holdingService.deleteHoldingStocks(userId, id));
+        if(holdingId == null)
+            throw new HoldingException(INVALID_HOLDING_VALUE,"보유 주식 아이디가 포함되지 않았습니다.");
+        int id = Integer.parseInt(holdingId);
+        holdingService.deleteHoldingStocks(userId, id);
+        return new BaseResponse<>(null);
     }
 
     @GetMapping("/{userId}")

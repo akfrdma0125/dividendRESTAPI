@@ -10,11 +10,11 @@ public class DividendMapper implements RowMapper<GetDividendRes> {
     public GetDividendRes mapRow(ResultSet rs, int rowNum) throws SQLException {
         GetDividendRes getDividendRes = new GetDividendRes();
 
-//        getDividendRes.setId(rs.getInt("id"));
-//        getDividendRes.setStockname(rs.getString("stockname"));
-//        getDividendRes.setDividend(rs.getDouble("dividend"));
-//        getDividendRes.setQuantity(rs.getInt("quantity"));
-//        getDividendRes.setCheckedAt(rs.getTimestamp("CheckedAt"));
+        getDividendRes.setHoldingId(rs.getInt("holding_id"));
+        getDividendRes.setStockId(rs.getInt("stock_id"));
+        getDividendRes.setDividend(rs.getDouble("dividend"));
+        getDividendRes.setQuantity(rs.getInt("quantity"));
+        getDividendRes.setCreatedAt(rs.getTimestamp("CreatedAt"));
         return getDividendRes;
     }
 }
