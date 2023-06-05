@@ -25,6 +25,10 @@ public class HoldingService {
 
     public void createHoldingStock(PostHoldingReq postHoldingReq){
         log.info("[HoldingService.createHoldingStock]");
+        // 주식 아이디 얻기
+        int stockId = holdingDao.getStockId(postHoldingReq.getStockName());
+        postHoldingReq.setStockId(stockId);
+
         int id = holdingDao.createHoldingStock(postHoldingReq);
         log.info("[HoldingService.createHoldingStock] : holdingId = {}",id);
         updateHoldingDollar(postHoldingReq.getPrice()*postHoldingReq.getQuantity(), postHoldingReq.getUserId());

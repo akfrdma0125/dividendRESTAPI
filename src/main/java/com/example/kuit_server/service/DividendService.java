@@ -7,6 +7,7 @@ import com.example.kuit_server.dao.StockDao;
 import com.example.kuit_server.dto.dividend.GetDividendRes;
 import com.example.kuit_server.dto.dividend.PostDividendReq;
 import com.example.kuit_server.dto.holding.PostHoldingReq;
+import com.example.kuit_server.dto.stock.StockInfo;
 import com.example.kuit_server.dto.user.HoldingDollarInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +32,13 @@ public class DividendService {
         validateHolding(postDividendReq.getHoldingId());
 
         //TODO : 2. 배당금 정보 추가
-        double dividend = dividendDao.getStockDividend(postDividendReq.getStockId());
-        postDividendReq.setDividend(dividend);
+        StockInfo stockInfo = dividendDao.getStockDividend(postDividendReq.getStockId());
+        postDividendReq.setDividend(stockInfo.getForwardDividend());
+        log.info("[DividendService.createDividendLog]: stockname={}",stockInfo.getStockName());
+        postDividendReq.setStockName(stockInfo.getStockName());
+
+
+        log.info(postDividendReq.toString());
 
         //TODO: 3. 데이터 추가
         int id = dividendDao.createDividendLog(postDividendReq);

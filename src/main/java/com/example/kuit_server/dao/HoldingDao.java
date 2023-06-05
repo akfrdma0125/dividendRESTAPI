@@ -1,11 +1,13 @@
 package com.example.kuit_server.dao;
 
+import com.example.kuit_server.common.exception.StockException;
 import com.example.kuit_server.dto.holding.GetHoldingRes;
 import com.example.kuit_server.dto.holding.PostHoldingReq;
 import com.example.kuit_server.dto.user.PostUserReq;
 import com.example.kuit_server.dto.user.PostUserRes;
 import com.example.kuit_server.mapper.HoldingMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -19,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.example.kuit_server.common.response.status.BaseExceptionResponseStatus.STOCK_NOT_FOUND;
+
 @Slf4j
 @Repository
 public class HoldingDao {
@@ -28,6 +32,16 @@ public class HoldingDao {
     public HoldingDao(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         this.holdingMapper = new HoldingMapper();
+    }
+
+    public int getStockId(String stockName){
+        String sql = "select stock_id from stock where stock_name=:stockName";
+        Map<String, Object> param = Map.of("stockName", stockName);
+        try {
+            return jdbcTemplate.queryForObject(sql, param, Integer.class);
+        }catch(EmptyResultDataAccessException e){
+            throw new StockException(STOCK_NOT_FOUND);
+        }
     }
 
     public int createHoldingStock(PostHoldingReq postHoldingReq) {

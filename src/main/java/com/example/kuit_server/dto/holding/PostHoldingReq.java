@@ -1,5 +1,6 @@
 package com.example.kuit_server.dto.holding;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
@@ -10,8 +11,7 @@ import org.hibernate.validator.constraints.Range;
 public class PostHoldingReq {
     @Range(min=1,message = "userId: 아이디는 {min} 이상부터 가능합니다")
     private int userId;
-
-    @Range(min=1,message = "stockId: 아이디는 {min} 이상부터 가능합니다")
+    @Nullable
     private int stockId;
 
     @NotBlank(message = "stockName: {NotBlank}")
@@ -26,4 +26,8 @@ public class PostHoldingReq {
 
     @Range(min=1,message = "quantity: {min} 이상부터 가능합니다")
     private int quantity;
+
+    public void setStockId(int stockId){
+        this.stockId = stockId;
+    }
 }

@@ -6,6 +6,7 @@ import com.example.kuit_server.dto.dividend.GetDividendRes;
 import com.example.kuit_server.dto.dividend.PostDividendReq;
 import com.example.kuit_server.dto.holding.GetHoldingRes;
 import com.example.kuit_server.dto.holding.PostHoldingReq;
+import com.example.kuit_server.dto.stock.StockInfo;
 import com.example.kuit_server.dto.user.HoldingDollarInfo;
 import com.example.kuit_server.mapper.DividendMapper;
 import com.example.kuit_server.mapper.StockDividendMapper;
@@ -40,8 +41,8 @@ public class DividendDao {
     }
 
     //Todo: 1. stock 배당금 정보 가져오는 함수
-    public double getStockDividend(int stockId){
-        String sql = "select forward_dividend, frequency from stock where stock_id=:stockId";
+    public StockInfo getStockDividend(int stockId){
+        String sql = "select forward_dividend, frequency, stock_name from stock where stock_id=:stockId";
         Map<String, Object> param = Map.of("stockId", stockId);
         try {
             return jdbcTemplate.queryForObject(sql, param, stockDividendMapper);
@@ -51,8 +52,8 @@ public class DividendDao {
     }
     //Todo: 2. 배당금 정보를 등록하는 함수
     public int createDividendLog(PostDividendReq postDividendReq) {
-        String sql = "insert into dividend(user_id, holding_id, stock_id, quantity, dividend) " +
-                "values(:userId,:holdingId,:stockId,:quantity,:dividend)";
+        String sql = "insert into dividend(user_id, holding_id, stock_id, stock_name, quantity, dividend) " +
+                "values(:userId,:holdingId,:stockId,:stockName,:quantity,:dividend)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(postDividendReq);
         KeyHolder keyHolder = new GeneratedKeyHolder();

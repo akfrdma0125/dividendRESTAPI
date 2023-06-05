@@ -24,6 +24,7 @@ public class StockDao {
         this.stockMapper = new StockMapper();
     }
 
+
     public GetStockRes getUserByStockName(String stockName) {
         String sql = "select * from stock where stock_name=:stockName";
         Map<String, Object> param = Map.of("stockName", stockName);

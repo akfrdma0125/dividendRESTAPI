@@ -12,6 +12,7 @@ public class DividendMapper implements RowMapper<GetDividendRes> {
 
         getDividendRes.setHoldingId(rs.getInt("holding_id"));
         getDividendRes.setStockId(rs.getInt("stock_id"));
+        getDividendRes.setStockName(rs.getString("stock_name"));
         getDividendRes.setDividend(rs.getDouble("dividend"));
         getDividendRes.setQuantity(rs.getInt("quantity"));
         getDividendRes.setCreatedAt(rs.getTimestamp("CreatedAt"));

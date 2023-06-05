@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 public class GetDividendRes {
     private int holdingId;
     private int stockId;
+    private String stockName;
     private double dividend;
     private int quantity;
     private Timestamp createdAt;
