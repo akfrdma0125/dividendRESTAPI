@@ -4,6 +4,7 @@ import com.example.kuit_server.common.exception.UserException;
 import com.example.kuit_server.common.response.BaseResponse;
 import com.example.kuit_server.dto.user.*;
 import com.example.kuit_server.service.UserService;
+import com.example.kuit_server.utils.ExchangeRateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -41,5 +42,11 @@ public class UserController {
     public BaseResponse<Double> getUserHoldingDollar(@PathVariable int userId){
         log.info("[UserController.getUserHoldingDollar]: userId = {}",userId);
         return new BaseResponse( userService.getUserHoldingDollar(userId));
+    }
+
+    @GetMapping("/exchange-rate")
+    public BaseResponse<Double> getExchangeRate(){
+        log.info("[UserController.getExchangeRate]");
+        return new BaseResponse(ExchangeRateUtils.getExchangeRate());
     }
 }

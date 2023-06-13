@@ -61,7 +61,9 @@ public enum BaseExceptionResponseStatus implements ResponseStatus{
      * 8000: DIVIDEND 오류
      */
     INVALID_DIVIDEND_VALUE(7000, HttpStatus.BAD_REQUEST.value(), "배당금 정보에서 잘못된 값이 존재합니다."),
-    DIVIDEND_NOT_FOUND(4006, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 배당금 정보입니다.");
+    DIVIDEND_NOT_FOUND(4006, HttpStatus.BAD_REQUEST.value(), "존재하지 않는 배당금 정보입니다."),
+
+    EXCHANGE_RATE_NOT_FOUND(4007, HttpStatus.BAD_REQUEST.value(), "환율 정보가 존재하지 않습니다.");
 
     private final int code;
     private final int status;
