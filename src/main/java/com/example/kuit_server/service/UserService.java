@@ -31,6 +31,12 @@ public class UserService {
         }
     }
 
+    public Double getUserHoldingDollar(int userId){
+        log.info("[UserService.getUserHoldingDollar]");
+        validateUserId(userId);
+        return userDao.getUserHoldingDollarByUserId(userId);
+    }
+
     //TODO : 보유 달러 값이 증가 혹은 감소하는 기능
     public void updateHoldingDollar(HoldingDollarInfo holdingDollarInfo){
         log.info("[UserService.updateHoldingDollar]");

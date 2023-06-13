@@ -43,6 +43,12 @@ public class UserDao {
         return jdbcTemplate.queryForObject(sql, param, userMapper);
     }
 
+    public double getUserHoldingDollarByUserId(int userId) {
+        String sql = "select holding_dollar from user where user_id=:userId";
+        Map<String, Object> param = Map.of("userId", userId);
+        return jdbcTemplate.queryForObject(sql, param, Double.class);
+    }
+
     public int deleteUser(int userId){
         String sql = "delete from user where user_id=:userId";
         Map<String, Object> param = Map.of("userId", userId);

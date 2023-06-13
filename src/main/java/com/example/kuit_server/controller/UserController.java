@@ -37,4 +37,9 @@ public class UserController {
         return new BaseResponse(null);
     }
 
+    @GetMapping("/{userId}")
+    public BaseResponse<Double> getUserHoldingDollar(@PathVariable int userId){
+        log.info("[UserController.getUserHoldingDollar]: userId = {}",userId);
+        return new BaseResponse( userService.getUserHoldingDollar(userId));
+    }
 }
